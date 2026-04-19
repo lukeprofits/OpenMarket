@@ -1,5 +1,5 @@
 # OpenMarket
-An optionally anonymous, fully decentralized, uncensorable marketplace that can’t be controlled, stopped, or shut down.
+A fully decentralized, uncensorable, optionally anonymous marketplace that can’t be controlled, stopped, or shut down.
 
 ## Get the App
 #### [OpenMarket Mobile App]() (coming soon)
