@@ -5,7 +5,7 @@ A fully decentralized, uncensorable marketplace that can’t be controlled, stop
 #### [OpenMarket Mobile App]() (coming soon)
 #### [OpenMarket Desktop] (https://github.com/lukeprofits/OpenMarket-Desktop) (coming soon)
 
-## Technologies 
+## Tech
 <li>IPFS</li>
 <li>NOSTR</li>
 <li>Monero</li>
