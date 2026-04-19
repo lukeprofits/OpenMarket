@@ -6,6 +6,6 @@ A fully decentralized, uncensorable marketplace that can’t be controlled, stop
 #### [OpenMarket Desktop] (https://github.com/lukeprofits/OpenMarket-Desktop) (coming soon)
 
 ## Technologies 
-#### IPFS
-#### NOSTR
-#### Monero
+IPFS
+NOSTR
+Monero
