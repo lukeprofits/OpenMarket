@@ -18,7 +18,7 @@ flowchart TD
         B[Create JSON + Upload to IPFS<br/>→ Get CID]
     end
 
-    subgraph "Broadcast (Spreading the CID)"
+    subgraph "Broadcast (Spread the CID)"
         C[Gossipsub<br/>libp2p]
         D[Bluetooth<br/>Local Announcement]
         E[Nostr<br/>Delayed Post]
