@@ -9,3 +9,48 @@ A fully decentralized, uncensorable, optionally anonymous marketplace that canâ€
 <li>IPFS</li>
 <li>NOSTR</li>
 <li>Monero</li>
+
+## How it Works
+```mermaid
+flowchart TD
+    subgraph "Your OpenMarket App"
+        A[User creates Listing] 
+        B[Create JSON + Upload to IPFS<br/>â†’ Get CID]
+    end
+
+    subgraph "Broadcast (Spreading the CID)"
+        C[Gossipsub<br/>libp2p]
+        D[Bluetooth<br/>Local Announcement]
+        E[Nostr<br/>Delayed Post]
+    end
+
+    subgraph "The Swarm"
+        F[Other Users' OpenMarket Apps]
+    end
+
+    subgraph "Result"
+        G[Everyone knows the CID]
+        H[Everyone auto-pins & seeds the content]
+        I[Fast loading from nearby peers]
+    end
+
+    A --> B
+    B --> C
+    B --> D
+    B --> E
+
+    C --> F
+    D --> F
+    E --> F
+
+    F -->|"Hears CID via Gossip, Bluetooth,<br/>or Nostr"| G
+    G --> H
+    H --> I
+
+    B -.->|"Original uploader becomes invisible"| H
+
+    style A fill:#4f46e5,stroke:#6366f1
+    style B fill:#15803d,stroke:#4ade80
+    style H fill:#166534,stroke:#86efac
+    style I fill:#1e40af,stroke:#60a5fa
+```
