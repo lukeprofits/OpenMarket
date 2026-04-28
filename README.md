@@ -43,11 +43,11 @@ flowchart TD
     D --> F
     E --> F
 
-    F -->|"Hears and spreads CID via Gossip, Bluetooth,<br/>or Nostr"| G
+    F -->|"Hears and spreads new CIDs via Gossip, Bluetooth,<br/>and Nostr"| G
     G --> H
     H --> I
 
-    B -.->|"Original uploader becomes invisible"| H
+    B -.->|"Impossible to know who the original uploader was"| H
 
     style A fill:#4f46e5,stroke:#6366f1
     style B fill:#15803d,stroke:#4ade80
