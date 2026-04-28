@@ -43,7 +43,7 @@ flowchart TD
     D --> F
     E --> F
 
-    F -->|"Hears CID via Gossip, Bluetooth,<br/>or Nostr"| G
+    F -->|"Hears and spreads CID via Gossip, Bluetooth,<br/>or Nostr"| G
     G --> H
     H --> I
 
