@@ -13,7 +13,7 @@ A fully decentralized, uncensorable, optionally anonymous marketplace that canâ€
 ## How it Works
 ```mermaid
 flowchart TD
-    subgraph "Your OpenMarket App"
+    subgraph "OpenMarket App"
         A[User creates Listing] 
         B[Create JSON + Upload to IPFS<br/>â†’ Get CID]
     end
@@ -25,7 +25,7 @@ flowchart TD
     end
 
     subgraph "The Swarm"
-        F[Other Users' OpenMarket Apps]
+        F[Other OpenMarket Apps]
     end
 
     subgraph "Result"
