@@ -22,6 +22,7 @@ flowchart TD
         C[Gossipsub<br/>libp2p]
         D[Bluetooth<br/>Local Announcement]
         E[Nostr<br/>Delayed Post]
+        J[LoRA<br/>Local Announcement]
     end
 
     subgraph "The Swarm"
@@ -38,10 +39,12 @@ flowchart TD
     B --> C
     B --> D
     B --> E
+    B --> J
 
     C --> F
     D --> F
     E --> F
+    J --> F
 
     F -->|"Hears and spreads new CIDs via Gossip, Bluetooth,<br/>and Nostr"| G
     G --> H
