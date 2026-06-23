@@ -15,7 +15,7 @@ A fully decentralized, uncensorable, optionally anonymous marketplace that can�
 flowchart TD
     subgraph "OpenMarket App"
         A[User creates Listing] 
-        B[Create JSON + Upload to IPFS<br/>→ Get CID]
+        B[Create JSON locally + prepare to upload to IPFS<br/>→ Get CID]
     end
 
     subgraph "Broadcast (Spread the CID)"
