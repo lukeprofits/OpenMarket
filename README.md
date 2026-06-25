@@ -51,7 +51,7 @@ flowchart TD
         A --> B
     end
 
-    subgraph SPREAD["📡 Send the listing out — works even offline"]
+    subgraph SPREAD["📡 Announce it everywhere — even offline"]
         C["Gossipsub<br/>libp2p"]
         D["Bluetooth<br/>local"]
         E["Nostr<br/>NIP-99"]
@@ -92,13 +92,13 @@ flowchart TD
 
 **In plain terms:** a listing is a tiny JSON file, and its address is a **CID computed from its
 content** — *deterministic*, so the same listing always yields the same CID no matter who computes it.
-You **compute the CID locally and broadcast the JSON itself** across every channel at once (gossip,
-Bluetooth, LoRa, Nostr) — it spreads even with no internet because it's tiny. Peers **relay it onward**
-(friend-to-friend, probabilistically, so the origin is lost in the crowd), and at some point a
-**downstream peer adds it to IPFS** — producing that *same* deterministic CID and pinning/seeding it.
-Now anyone can fetch it at the CID they already knew (an IPFS lookup, which needs a connection). The
-key trick: **you never upload it to IPFS yourself**, so there's no way to tell who originally posted it
-— and because the CID is deterministic, everyone already knows exactly where to look the moment it lands.
+You **compute the CID locally** (you don't upload it) and **broadcast the listing**; peers **relay it
+onward** (friend-to-friend, probabilistically, so the origin is lost in the crowd), and at some point a
+**downstream peer adds the JSON to IPFS** — producing that *same* deterministic CID and pinning/seeding
+it. Even with no internet, that deterministic **CID keeps propagating over Bluetooth and LoRa**, so
+discovery survives a blackout — you resolve the content from IPFS once you're back online. The key
+trick: **you never upload it to IPFS yourself**, so there's no way to tell who originally posted it —
+and because the CID is deterministic, everyone already knows exactly where to look the moment it lands.
 
 ## Build it yourself — the idea, in the open
 
@@ -133,13 +133,15 @@ Plebeian Market listings and they see yours — and lets a seller choose: a **st
 reputation, not anonymous) or a **throwaway npub per listing** (anonymous, no reputation).
 
 **Distribution (the multi-transport spread).** Posting = **compute the CID locally** (deterministic —
-you do *not* upload) → **broadcast the JSON itself across every channel at once**: Nostr (as NIP-99,
-clearnet discovery), libp2p **gossipsub** (internet peer gossip), and **Bluetooth / LoRa** (local
-broadcast, works with no internet). Clients that receive it **relay it onward** — **probabilistic
-forwarding** (relay vs originate at random, friend-to-friend) so the origin blends into the crowd — and
-**a downstream peer adds it to IPFS**, producing the same deterministic CID and pinning/seeding it.
-Because the CID is deterministic, the announced CID matches what any pinner produces — so everyone
-already knows where to look, and the original poster never had to expose themselves as the uploader.
+you do *not* upload) → **broadcast the listing** across the channels you have: Nostr (as NIP-99,
+clearnet discovery), libp2p **gossipsub** (internet peer gossip), and **Bluetooth / LoRa** (local).
+Clients that receive it **relay it onward** — **probabilistic forwarding** (relay vs originate at
+random, friend-to-friend) so the origin blends into the crowd — and **a downstream peer adds the JSON
+to IPFS**, producing the same deterministic CID and pinning/seeding it. Offline, the deterministic
+**CID keeps propagating over Bluetooth/LoRa** so discovery survives; content is resolved from IPFS once
+connectivity returns. Because the CID is deterministic, the announced CID matches what any pinner
+produces — so everyone already knows where to look, and the original poster never had to expose
+themselves as the uploader.
 
 **Resolving & caching.** A CID resolves to its JSON via IPFS (needs connectivity). Each client keeps a
 **bounded, ephemeral pin buffer** — a rolling window with size + age limits and sane defaults; newest
@@ -157,9 +159,10 @@ node/transport backend; the UI stays thin on purpose. (Resist the feature factor
 its rolling buffer, and relays CIDs. Desktops (always-on, more storage) carry more of the seeding;
 phones do their share within battery/storage limits.
 
-**Anonymity (and its limits).** Route the IPFS-upload hop over **Tor**; use throwaway npubs per listing
-for anonymous posting. Friend-to-friend forwarding hides the *uploader*, but your *direct* first hop and
-a global network observer are the limits — see the honest note below.
+**Anonymity (and its limits).** Run your connections (Nostr, gossip, any IPFS) over **Tor** where you
+can, and use **throwaway npubs per listing** for anonymous posting. Not-being-the-IPFS-uploader plus
+friend-to-friend forwarding hide the origin, but your *direct* first hop and a global network observer
+are the limits — see the honest note below.
 
 ## How payment works
 
